@@ -1,0 +1,67 @@
+plugins {
+    id 'application'
+    id 'java'
+    id 'jacoco'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Lombok для генерации
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+    // JUnit 5 для тестирования
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.3'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.3'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.10.3' // Зависимость для параметризованных тестов
+
+    // AssertJ выразительные ассерты
+    testImplementation 'org.assertj:assertj-core:3.25.3'
+
+    // Mockito мокировать
+    testImplementation 'org.mockito:mockito-core:5.13.0'
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.13.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jacoco {
+    toolVersion = "0.8.11"
+}
+
+jacocoTestReport {
+    dependsOn test // гарантируем, что тесты выполнены до генерации отчёта
+
+    reports {
+        xml.required = true
+        html.required = true
+    }
+
+    // Исключаем классы, сгенерированные Lombok
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    '**/*$*',           // внутренние классы (включая Lombok)
+                    '**/*Lombok*',     // классы с метками Lombok
+                    '**/*Builder*',    // Builder-классы от Lombok
+                    '**/*Value*',      // @Value-классы
+                    '**/*Data*',       // @Data-классы
+                    '**/*Getter*',     // @Getter-методы
+                    '**/*Setter*',     // @Setter-методы
+                    '**/*ToString*',   // @ToString-методы
+                    '**/*EqualsAndHashCode*' // @EqualsAndHashCode-методы
+            ])
+        }))
+    }
+}
+
