@@ -1,19 +1,21 @@
 # BookingTesting
 
-Учебный проект по модульному тестированию Java-приложения для управления бронированием номеров в отеле.
+A small educational project focused on unit testing a Java application for hotel room booking.
 
-##  О проекте
+ Russian version: [README.ru.md](README.ru.md)
 
-Проект реализует базовую модель бронирования:
+## Overview
 
-- Booking — бронирование
-- Customer — клиент
-- Room — номер
-- BookingService — сервис управления бронированием
-- RoomService — сервис управления номерами
-- NotificationService — внешний сервис уведомлений
+This project models a simple booking domain:
 
-## 🛠 Технологии
+- **Booking** — booking entity
+- **Customer** — customer entity
+- **Room** — room entity
+- **BookingService** — booking management service
+- **RoomService** — room management service
+- **NotificationService** — external notification service (dependency)
+
+## Tech stack
 
 - Java 17
 - Gradle 7.4.1
@@ -21,38 +23,29 @@
 - Mockito
 - AssertJ
 
-##  Покрытие тестами
+## Tests
 
-Реализованы:
+Included test coverage:
 
-- Unit-тесты для модели Booking
-- Тесты сервисов BookingService и RoomService
-- Использование моков (Mockito)
-- Проверка бизнес-логики
-- Проверка корректности конструкторов и геттеров
+- Model tests for **Booking**
+- Unit tests for **BookingService** and **RoomService**
+- Mocking external dependencies with **Mockito**
+- Business logic assertions
 
-## ▶ Запуск проекта
+## How to run
 
-Сборка:
+Build:
 
+```bash
 ./gradlew clean build
 
-
-Запуск тестов:
-
-
+Run tests:
 
 ./gradlew test
 
-
-##  Структура
-
-
-
+Project structure
 src/main/java/com/skillbox/hotel
 src/test/java/com/skillbox/hotel
 
 
----
 
-Проект выполнен в рамках изучения продвинутого тестирования Java.
